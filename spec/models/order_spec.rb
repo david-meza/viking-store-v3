@@ -5,7 +5,7 @@ describe Order do
 
   context "#value" do
     it 'should properly calculate the value' do
-      expect(Order.first.value).to eq(1383.67)
+      expect(Order.first.value).to eq(1862.56)
     end
   end
 
@@ -34,6 +34,24 @@ describe Order do
 
     it 'should properly average the orders in the last 7 days' do
       expect(Order.average_in_last(7)).to be_within(0.1).of(1458.32)
+    end
+  end
+
+  context ".largest_in_last" do
+    it "should return the highest single order value of all time" do
+      expect(Order.largest_in_last).to be_within(0.1).of(5758.67)
+    end
+    it "should return the highest single order value (7 days)" do
+      expect(Order.largest_in_last(7)).to be_within(0.1).of(2678.73)
+    end
+  end
+
+  context ".revenue_in_last" do
+    it "should return the earned revenue of all time" do
+      expect(Order.revenue_in_last(nil)).to be_within(0.1).of(446736.33)
+    end
+    it "should return the earned revenue (7 days)" do
+      expect(Order.revenue_in_last(7)).to be_within(0.1).of(11666.55)
     end
   end
 end
